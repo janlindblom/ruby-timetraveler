@@ -1,3 +1,3 @@
 module TimezoneCalculator
-  VERSION = "0.1.0"
+  VERSION = "2018.3.16"
 end
