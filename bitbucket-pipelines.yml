@@ -1,0 +1,14 @@
+image: ruby:2.4.0
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - bundler
+        script:
+          - bundle install
+          - bundle exec rake spec
+
+definitions:
+  caches:
+    bundler: ./vendor
