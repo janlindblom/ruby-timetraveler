@@ -10,7 +10,6 @@ Gem::Specification.new do |spec|
   spec.email         = ["jan.lindblom@mittmedia.se"]
 
   spec.summary       = %q{Find timezone based on geographical location, offline.}
-  spec.description   = %q{Find timezone based on geographical location, offline.}
   spec.homepage      = "https://bitbucket.org/janlindblom/ruby-timetraveler"
   spec.license       = "MIT"
 
@@ -26,4 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "pry", "~> 0.11"
   spec.add_development_dependency "rubyzip", "~> 1.2"
+  spec.add_runtime_dependency "quadtree", "~> 1.0"
+  spec.add_runtime_dependency "tzinfo"
+  spec.add_runtime_dependency "tzinfo-data"
 end
