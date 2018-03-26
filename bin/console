@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "timezone_calculator"
+require "time_traveler"
 
 require "pry"
 Pry.start
