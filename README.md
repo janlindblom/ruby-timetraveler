@@ -26,7 +26,8 @@ Find a timezone for a geographical coordinate (WGS84) like so:
 ```ruby
 require 'timetraveler'
 
-TimeTraveler.find_timezone
+TimeTraveler.find_timezone(77.2090210, 28.6139390)
+```
 
 ## Development
 
