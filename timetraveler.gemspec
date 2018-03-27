@@ -25,7 +25,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "pry", "~> 0.11"
   spec.add_development_dependency "rubyzip", "~> 1.2"
+  spec.add_development_dependency "dotenv", "~> 2.2"
   spec.add_runtime_dependency "quadtree", "~> 1.0"
-  spec.add_runtime_dependency "tzinfo"
-  spec.add_runtime_dependency "tzinfo-data"
+  spec.add_runtime_dependency "tzinfo", "~> 1.2"
+  spec.add_runtime_dependency "tzinfo-data", "~> 1"
 end

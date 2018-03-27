@@ -1,35 +1,13 @@
+require 'quadtree'
+
 module TimeTraveler
+  # Utilities for working with data files.
   # @api private
   class Utils
     class << self
 
-      def load_timezone_data(working_directory="lib/data")
-        require 'quadtree'
+      def load_timezone_data(working_directory=TimeTraveler::DATA_DIR)
         Marshal.load(unpack_timezone_data(working_directory))
-      rescue
-        nil
-      end
-
-      def pack_timezone_data(working_directory="lib/data")
-        require 'zlib'
-        Zlib::GzipWriter.open("#{working_directory}/cities.data.gz") do |gz|
-          File.open("#{working_directory}/cities.data") do |fp|
-            while chunk = fp.read(16 * 1024) do
-              gz.write chunk
-            end
-          end
-          gz.close
-        end
-        true
-      rescue
-        false
-      end
-
-      def unpack_timezone_data(working_directory="lib/data")
-        require 'zlib'
-        require 'quadtree'
-        gz = Zlib::GzipReader.open("#{working_directory}/cities.data.gz")
-        gz.read
       rescue
         nil
       end
@@ -61,16 +39,15 @@ module TimeTraveler
         false
       end
 
-      def process_geonames_data(cities_file, working_directory, target_directory="lib/data")
+      def process_geonames_data(cities_file, working_directory, target_directory="./lib/data")
         require 'csv'
-        require 'quadtree'
+
         aabb = Quadtree::AxisAlignedBoundingBox.new(Quadtree::Point.new(0,0), 180)
         qt = Quadtree::Quadtree.new(aabb)
 
         parsed_file = CSV.read("#{working_directory}/#{cities_file}.txt", { :col_sep => "\t" })
         parsed_file.each do |entry|
           if entry.size > 18
-            name = entry[1]
             latitude = entry[4]
             longitude = entry[5]
             timezone = entry[17]
@@ -92,7 +69,30 @@ module TimeTraveler
         nil
       end
 
+      def pack_timezone_data(working_directory=Pathname.new("./lib/data"))
+        require 'zlib'
+        working_directory = Pathname.new(working_directory) if working_directory.is_a? String
+        Zlib::GzipWriter.open(working_directory.join("cities.data.gz")) do |gz|
+          File.open(working_directory.join("cities.data")) do |fp|
+            while chunk = fp.read(16 * 1024) do
+              gz.write chunk
+            end
+          end
+          gz.close
+        end
+        true
+      rescue
+        false
+      end
 
+      def unpack_timezone_data(working_directory=Pathname.new("./lib/data"))
+        require 'zlib'
+        working_directory = Pathname.new(working_directory) if working_directory.is_a? String
+        gz = Zlib::GzipReader.open(working_directory.join("cities.data.gz"))
+        gz.read
+      rescue
+        nil
+      end
 
     end
   end

@@ -4,6 +4,8 @@ require "quadtree"
 require "tzinfo"
 
 module TimeTraveler
+  DATA_DIR = Pathname.new(__FILE__).join("../data").freeze
+
   def self.find_timezone(longitude, latitude)
     world = Utils.load_timezone_data
     entry_point = Quadtree::Point.new(longitude, latitude)

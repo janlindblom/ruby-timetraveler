@@ -26,6 +26,7 @@ namespace "metadata" do
 
   task :clean do |t|
     rm_rf "tmp"
+    rm_f "lib/data/cities.data"
   end
 
   desc "Update metadata from geonames.org"

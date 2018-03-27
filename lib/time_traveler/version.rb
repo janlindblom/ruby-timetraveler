@@ -1,3 +1,3 @@
 module TimeTraveler
-  VERSION = "2018.3.16"
+  VERSION = "1.2018.1"
 end
