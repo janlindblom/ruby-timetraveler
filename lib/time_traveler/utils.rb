@@ -2,16 +2,21 @@ require 'quadtree'
 
 module TimeTraveler
   # Utilities for working with data files.
+  #
   # @api private
   class Utils
     class << self
 
+      # Load timezone database from file.
+      #
+      # @param [Pathname] working_directory
+      # @return [Quadtree::Quadtree] the database.
       def load_timezone_data(working_directory=TimeTraveler::DATA_DIR)
         Marshal.load(unpack_timezone_data(working_directory))
-      rescue
-        nil
       end
 
+      # @param [String] cities_file
+      # @param [String] target_directory
       def download_geonames_data(cities_file, target_directory)
         require 'net/http'
 
@@ -21,11 +26,10 @@ module TimeTraveler
             file.write(resp.body)
           end
         end
-        true
-      rescue
-        false
       end
 
+      # @param [String] cities_file
+      # @param [String] working_directory
       def unzip_geonames_data(cities_file, working_directory)
         require 'zip'
         Zip.on_exists_proc = true
@@ -34,11 +38,12 @@ module TimeTraveler
             entry.extract("#{working_directory}/#{entry.name}")
           end
         end
-        true
-      rescue
-        false
       end
 
+      # @param [String] cities_file
+      # @param [String] working_directory
+      # @param [String] target_directory
+      # @return [Quadtree::Quadtree] the database.
       def process_geonames_data(cities_file, working_directory, target_directory="./lib/data")
         require 'csv'
 
@@ -65,11 +70,10 @@ module TimeTraveler
         pack_timezone_data(target_directory)
 
         qt
-      rescue
-        nil
       end
 
-      def pack_timezone_data(working_directory=Pathname.new("./lib/data"))
+      # @param [Pathname] working_directory
+      def pack_timezone_data(working_directory=TimeTraveler::DATA_DIR)
         require 'zlib'
         working_directory = Pathname.new(working_directory) if working_directory.is_a? String
         Zlib::GzipWriter.open(working_directory.join("cities.data.gz")) do |gz|
@@ -80,18 +84,15 @@ module TimeTraveler
           end
           gz.close
         end
-        true
-      rescue
-        false
       end
 
-      def unpack_timezone_data(working_directory=Pathname.new("./lib/data"))
+      # @param [Pathname] working_directory
+      # @return [String]
+      def unpack_timezone_data(working_directory=TimeTraveler::DATA_DIR)
         require 'zlib'
         working_directory = Pathname.new(working_directory) if working_directory.is_a? String
         gz = Zlib::GzipReader.open(working_directory.join("cities.data.gz"))
         gz.read
-      rescue
-        nil
       end
 
     end

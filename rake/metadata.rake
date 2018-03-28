@@ -10,18 +10,18 @@ namespace "metadata" do
 
   task download: :tmp do |t|
     puts "Downloading #{CITIES_FILE}.zip from geonames.org..."
-    TimeTraveler::Utils.download_geonames_data(CITIES_FILE, "tmp")
+    TimeTraveler::Utils.download_geonames_data(CITIES_FILE, "./tmp")
     puts "Download finished. Stored as 'tmp/#{CITIES_FILE}.zip'."
   end
 
   task unzip: :download do |t|
     puts "Unzipping cities database from 'tmp/#{CITIES_FILE}.zip'..."
-    TimeTraveler::Utils.unzip_geonames_data(CITIES_FILE, "tmp")
+    TimeTraveler::Utils.unzip_geonames_data(CITIES_FILE, "./tmp")
     puts "Done."
   end
 
   task process: [:unzip, "lib/data"] do |t|
-    TimeTraveler::Utils.process_geonames_data(CITIES_FILE, "tmp")
+    TimeTraveler::Utils.process_geonames_data(CITIES_FILE, "./tmp")
   end
 
   task :clean do |t|
