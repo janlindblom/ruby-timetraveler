@@ -1,5 +1,6 @@
 require "bundler/setup"
-require "timezone_calculator"
+require "time_traveler"
+require "time_traveler/utils"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
