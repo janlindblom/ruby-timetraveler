@@ -1,5 +1,8 @@
 image: "ruby:2.4"
 
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
+
 stages:
   - build
   - test
