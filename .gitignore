@@ -61,12 +61,12 @@ Temporary Items
 # .env
 
 ## Specific to RubyMotion:
-.dat*
-.repl_history
-build/
-*.bridgesupport
-build-iPhoneOS/
-build-iPhoneSimulator/
+#.dat*
+#.repl_history
+#build/
+#*.bridgesupport
+#build-iPhoneOS/
+#build-iPhoneSimulator/
 
 ## Specific to RubyMotion (use of CocoaPods):
 #
@@ -145,3 +145,5 @@ $RECYCLE.BIN/
 
 
 # End of https://www.gitignore.io/api/vim,ruby,macos,linux,windows,visualstudiocode
+
+/lib/data/cities.data

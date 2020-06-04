@@ -12,7 +12,8 @@ module TimeTraveler
       # @param [Pathname] working_directory
       # @return [Quadtree::Quadtree] the database.
       def load_timezone_data(working_directory=TimeTraveler::DATA_DIR)
-        Marshal.load(unpack_timezone_data(working_directory))
+        require 'json'
+        Quadtree::Quadtree.from_json(JSON.load(unpack_timezone_data(working_directory)))
       end
 
       # @param [String] cities_file
@@ -67,7 +68,7 @@ module TimeTraveler
         end
 
         File.open("#{target_directory}/cities.data", 'w') do |f|
-          f.write Marshal.dump(qt)
+          f.write qt.to_json
         end
 
         pack_timezone_data(target_directory)
@@ -79,12 +80,12 @@ module TimeTraveler
       def pack_timezone_data(working_directory=TimeTraveler::DATA_DIR)
         require 'zlib'
         working_directory = Pathname.new(working_directory) if working_directory.is_a? String
+
         Zlib::GzipWriter.open(working_directory.join("cities.data.gz")) do |gz|
           File.open(working_directory.join("cities.data")) do |fp|
-            gz.write fp.read
-            #while chunk = fp.read(16 * 1024) do
-            #  gz.write chunk
-            #end
+            while chunk = fp.read(16 * 1024) do
+              gz.write chunk
+            end
           end
           gz.close
         end
