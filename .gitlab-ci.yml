@@ -1,0 +1,35 @@
+image: "ruby:2.4"
+
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
+
+stages:
+  - build
+  - test
+  - verify
+
+before_script:
+  - gem install bundler --version 2.1.4 --no-document
+  - bundle install --jobs $(nproc)  "${FLAGS[@]}"
+
+build:
+  script:
+    - bundle exec rake build
+  artifacts:
+    paths:
+      - pkg/*.gem
+
+test:
+  stage: test
+  script:
+    - bundle exec rake spec:offline
+  artifacts:
+    paths:
+      - test-reports/rspec.xml
+    reports:
+      junit: test-reports/rspec.xml
+
+verification:
+  stage: test
+  script:
+    - bundle exec rake yard

@@ -1,0 +1,31 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      ruby: 2.6
+    commands:
+      - gem uninstall bundler --version '<2.1.4'
+      - gem install bundler --version 2.1.4
+  pre_build:
+    commands:
+      - bundle install
+  build:
+    commands:
+      - bundle exec rake build
+      - bundle exec rake yard
+      - bundle exec rake spec:offline
+
+reports:
+  tests:
+    files:
+       - test-reports/rspec.xml
+    #base-directory: location
+    #discard-paths: yes
+    file-format: JunitXml
+
+artifacts:
+  files:
+    - pkg/*.gem
+  discard-paths: yes
+  #base-directory: location
