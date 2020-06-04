@@ -19,13 +19,14 @@ module TimeTraveler
       # @param [String] target_directory
       def download_geonames_data(cities_file, target_directory)
         require 'net/http'
-
+        resp = nil
         Net::HTTP.start("download.geonames.org") do |http|
           resp = http.get("/export/dump/#{cities_file}.zip")
           open("#{target_directory}/#{cities_file}.zip", "wb") do |file|
             file.write(resp.body)
           end
         end
+        !resp.nil? && resp.code.to_i < 400
       end
 
       # @param [String] cities_file
@@ -33,11 +34,13 @@ module TimeTraveler
       def unzip_geonames_data(cities_file, working_directory)
         require 'zip'
         Zip.on_exists_proc = true
-        Zip::File.open("#{working_directory}/#{cities_file}.zip") do |zip_file|
+        extracted = nil
+        extracted = Zip::File.open("#{working_directory}/#{cities_file}.zip") do |zip_file|
           zip_file.each do |entry|
             entry.extract("#{working_directory}/#{entry.name}")
           end
         end
+        !extracted.nil? && extracted.size > 0
       end
 
       # @param [String] cities_file
@@ -78,9 +81,10 @@ module TimeTraveler
         working_directory = Pathname.new(working_directory) if working_directory.is_a? String
         Zlib::GzipWriter.open(working_directory.join("cities.data.gz")) do |gz|
           File.open(working_directory.join("cities.data")) do |fp|
-            while chunk = fp.read(16 * 1024) do
-              gz.write chunk
-            end
+            gz.write fp.read
+            #while chunk = fp.read(16 * 1024) do
+            #  gz.write chunk
+            #end
           end
           gz.close
         end

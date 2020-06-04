@@ -1,4 +1,4 @@
 module TimeTraveler
   # Current version
-  VERSION = "2018.3.28p"
+  VERSION = "20.6.0"
 end

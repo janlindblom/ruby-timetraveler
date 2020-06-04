@@ -20,14 +20,14 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.14"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "pry", "~> 0.11"
-  spec.add_development_dependency "rubyzip", "~> 1.2"
-  spec.add_development_dependency "dotenv", "~> 2.2"
+  spec.add_development_dependency "bundler", ">= 1.14"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec", "~> 3.9"
+  spec.add_development_dependency "pry", "~> 0.13"
+  spec.add_development_dependency "rubyzip", "~> 2.3"
+  spec.add_development_dependency "dotenv", "~> 2.7"
   spec.add_development_dependency "yard", "~> 0.9"
   spec.add_runtime_dependency "quadtree", "~> 1.0"
-  spec.add_runtime_dependency "tzinfo", "~> 1.2"
+  spec.add_runtime_dependency "tzinfo", "~> 2.0"
   spec.add_runtime_dependency "tzinfo-data", "~> 1"
 end
