@@ -19,7 +19,7 @@ phases:
 reports:
   tests:
     files:
-       - spec/reports/rspec.xml
+       - test-reports/rspec.xml
     #base-directory: location
     #discard-paths: yes
     file-format: JunitXml

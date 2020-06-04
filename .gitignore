@@ -147,3 +147,4 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/vim,ruby,macos,linux,windows,visualstudiocode
 
 /lib/data/cities.data
+/test-reports
