@@ -19,7 +19,7 @@ build:
 test:
   stage: test
   script:
-    - bundle exec rake spec
+    - bundle exec rake spec:offline
   artifacts:
     paths:
       - spec/reports/rspec.xml
@@ -30,4 +30,3 @@ verification:
   stage: test
   script:
     - bundle exec rake yard
-    - bundle exec rake rubocop

@@ -14,8 +14,15 @@ phases:
     commands:
       - bundle exec rake build
       - bundle exec rake yard
-      - bundle exec rake rubocop
-      - bundle exec rake spec
+      - bundle exec rake spec:offline
+
+reports:
+  tests:
+    files:
+       - spec/reports/rspec.xml
+    #base-directory: location
+    #discard-paths: yes
+    file-format: JunitXml
 
 artifacts:
   files:
