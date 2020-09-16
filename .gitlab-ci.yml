@@ -19,8 +19,9 @@ build:
     paths:
       - pkg/*.gem
 
-test:
+test:offline:
   stage: test
+  needs: ["build"]
   script:
     - bundle exec rake spec:offline
   artifacts:
@@ -30,7 +31,30 @@ test:
     reports:
       junit: test-reports/rspec.xml
 
-verification:
+test:online:
   stage: test
+  needs: ["build", "test:offline"]
+  script:
+    - bundle exec rake spec:online
+  only:
+    refs:
+      - master
+  artifacts:
+    when: always
+    paths:
+      - test-reports/rspec.xml
+    reports:
+      junit: test-reports/rspec.xml
+
+yard:
+  needs: ["build"]
+  stage: verify
   script:
     - bundle exec rake yard
+
+rubocop:
+  needs: ["build"]
+  stage: verify
+
+  script:
+    - bundle exec rake rubocop
