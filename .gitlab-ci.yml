@@ -3,6 +3,11 @@ image: "ruby:2.4"
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
 
+stages:
+  - build
+  - test
+  - verify
+
 before_script:
   - gem install bundler --version 2.1.4 --no-document
   - bundle install --jobs $(nproc) "${FLAGS[@]}"
