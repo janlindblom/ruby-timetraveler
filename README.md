@@ -1,5 +1,7 @@
 # TimeTraveler
 
+![AWS CodeBuild](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoieFc4WFBsQTg5VjJja201QnhyRGJTdzNmZDQ1K1NGODQrOEczdXJibHFpNXJjL0w3R2xjc1FkNkxtMTVuOUpvNU5xcGpyR1hzRUs2anZmRHdMTkJITXI4PSIsIml2UGFyYW1ldGVyU3BlYyI6InhUZHd4bmt3bm9BajNLamsiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+
 TimeTraveler finds timezones based on geographical coordinates using offline
 data and Quadtree lookups intead of an online API.
 
@@ -29,6 +31,16 @@ require 'timetraveler'
 TimeTraveler.find_timezone(77.2090210, 28.6139390)
 ```
 
+## How it Works
+
+The TimeTraveler gem contains a rather large blob which is in reality a JSON document describing a full Quadtree with all the cities contained in the GeoNames "Free Gazetteer extract" file `cities15000.zip` which contains "cities with a population > 15000 or capitals (ca 25.000)".
+
+The Quadtree datastructure contains only the WGS84 coordinates and the IANA timezone for each city, so that it's really just big set of time zones at different places on the earth.
+
+This Quadtree can be rebuilt periodically from the latest version available from GeoNames.
+
+The `cities15000.zip` file is downloaded from GeoNames [Free Gazetteer Data](http://download.geonames.org/export/dump/) where it is made available under a [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) License.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -42,6 +54,10 @@ Bug reports and pull requests are welcome on Bitbucket at https://bitbucket.org/
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+Geographical data from the GeoNames Free Gazetteer extract `cities15000.zip` file is used under the [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) License.
+
+The embedded JSON data structure contained in the TimeTraveler gem constructed from this data is to be considered an adapted work in accordance with this license.
 
 ## Code of Conduct
 

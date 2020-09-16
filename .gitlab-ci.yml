@@ -10,26 +10,52 @@ stages:
 
 before_script:
   - gem install bundler --version 2.1.4 --no-document
-  - bundle install --jobs $(nproc)  "${FLAGS[@]}"
+  - bundle install --jobs $(nproc) "${FLAGS[@]}"
 
 build:
+  stage: build
   script:
     - bundle exec rake build
   artifacts:
     paths:
       - pkg/*.gem
 
-test:
+test:offline:
   stage: test
+  needs: ["build"]
   script:
     - bundle exec rake spec:offline
   artifacts:
+    when: always
     paths:
       - test-reports/rspec.xml
     reports:
       junit: test-reports/rspec.xml
 
-verification:
+test:online:
   stage: test
+  needs: ["build"]
+  script:
+    - bundle exec rake spec:online
+  only:
+    refs:
+      - master
+  artifacts:
+    when: always
+    paths:
+      - test-reports/rspec.xml
+    reports:
+      junit: test-reports/rspec.xml
+
+yard:
+  needs: ["build"]
+  stage: verify
   script:
     - bundle exec rake yard
+
+rubocop:
+  needs: ["build"]
+  stage: verify
+
+  script:
+    - bundle exec rake rubocop

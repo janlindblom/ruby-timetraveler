@@ -1,7 +1,9 @@
-require "time_traveler/version"
-require "time_traveler/utils"
-require "quadtree"
-require "tzinfo"
+# frozen_string_literal: true
+
+require 'time_traveler/version'
+require 'time_traveler/utils'
+require 'quadtree'
+require 'tzinfo'
 
 # Find the time zone for a given geographical coordinate.
 #
@@ -17,7 +19,7 @@ module TimeTraveler
     entry_point = Quadtree::Point.new(longitude, latitude)
     radius = 6
     zones = []
-    while zones.size == 0 or zones.size > 1
+    while zones.size.zero? || (zones.size > 1)
       points = world.query_range(Quadtree::AxisAlignedBoundingBox.new(entry_point, radius))
       zones = points.map { |p| TZInfo::Timezone.get(p.data) }.uniq
       radius -= 0.5
@@ -25,7 +27,5 @@ module TimeTraveler
     zones.first
   end
 
-  private
-
-  DATA_DIR = Pathname.new(__FILE__).join("../data").freeze
+  DATA_DIR = Pathname.new(__FILE__).join('../data').freeze
 end
