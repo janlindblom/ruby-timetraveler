@@ -1,4 +1,16 @@
-image: ruby:2.6
+.ruby-cache:
+  before_script:
+    - gem install bundler --version 2.2.5 --no-document
+    - bundle install --jobs $(nproc) "${FLAGS[@]}"
+  cache:
+    key:
+      files:
+        - timetraveler.gemspec
+    paths:
+      - vendor
+
+default:
+  image: ruby:2.6
 
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
@@ -19,6 +31,7 @@ build:
   artifacts:
     paths:
       - pkg/*.gem
+  extends: .ruby-cache
 
 test:offline:
   stage: test
@@ -31,6 +44,7 @@ test:offline:
       - test-reports/rspec.xml
     reports:
       junit: test-reports/rspec.xml
+  extends: .ruby-cache
 
 test:online:
   stage: test
@@ -46,12 +60,14 @@ test:online:
       - test-reports/rspec.xml
     reports:
       junit: test-reports/rspec.xml
+  extends: .ruby-cache
 
 yard:
   needs: ["build"]
   stage: verify
   script:
     - bundle exec rake yard
+  extends: .ruby-cache
 
 rubocop:
   needs: ["build"]
@@ -59,3 +75,4 @@ rubocop:
 
   script:
     - bundle exec rake rubocop
+  extends: .ruby-cache

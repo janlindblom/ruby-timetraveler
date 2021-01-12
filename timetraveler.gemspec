@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "timetraveler"
   spec.version       = TimeTraveler::VERSION
   spec.authors       = ["Jan Lindblom"]
-  spec.email         = ["jan.lindblom@mittmedia.se"]
+  spec.email         = ["janlindblom@fastmail.fm"]
 
   spec.summary       = %q{Find timezone based on geographical location, offline.}
-  spec.homepage      = "https://bitbucket.org/janlindblom/ruby-timetraveler"
+  spec.homepage      = "https://gitlab.com/robotika.ax/ruby-timetraveler"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
