@@ -69,7 +69,10 @@ Style/WhileUntilDo:
   Enabled: true
 
 Style/ZeroLengthPredicate:
-  Enabled: true
+  Enabled: false
+
+Style/FileWrite:
+  Enabled: false
 
 Security/Open:
   Exclude:
