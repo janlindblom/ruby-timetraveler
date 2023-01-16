@@ -8,10 +8,14 @@ Gem::Specification.new do |spec|
   spec.version       = TimeTraveler::VERSION
   spec.authors       = ["Jan Lindblom"]
   spec.email         = ["janlindblom@fastmail.fm"]
-
+  spec.date          = "2023-01-16"
   spec.summary       = %q{Find timezone based on geographical location, offline.}
   spec.homepage      = "https://github.com/janlindblom/ruby-timetraveler"
   spec.license       = "MIT"
+
+  if spec.respond_to? :specification_version then
+    spec.specification_version = 4
+  end
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(bin|test|spec|features|.github)/}) ||
@@ -26,8 +30,9 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.6.0")
 
-  spec.add_development_dependency "bundler", "~> 2.4"
+  spec.add_development_dependency "bundler", "~> 2"
   spec.add_development_dependency "rake", "~> 13"
   spec.add_development_dependency "rspec", "~> 3"
   spec.add_development_dependency "pry", "~> 0.14"
