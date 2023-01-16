@@ -4,17 +4,24 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "time_traveler/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "timetraveler"
+  spec.name          = "tz-traveler"
   spec.version       = TimeTraveler::VERSION
   spec.authors       = ["Jan Lindblom"]
   spec.email         = ["janlindblom@fastmail.fm"]
 
   spec.summary       = %q{Find timezone based on geographical location, offline.}
-  spec.homepage      = "https://gitlab.com/robotika.ax/ruby-timetraveler"
+  spec.homepage      = "https://github.com/janlindblom/ruby-timetraveler"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
+    f.match(%r{^(bin|test|spec|features|.github)/}) ||
+    f == ".gitignore" ||
+    f == ".editorconfig" ||
+    f == ".rspec" ||
+    f == ".gitlab-ci.yml" ||
+    f == ".rubocop.yml" ||
+    f == ".rubocop_todo.yml" ||
+    f == "Jenkinsfile"
   end
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }

@@ -1,7 +1,5 @@
 # TimeTraveler
 
-![AWS CodeBuild](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoieFc4WFBsQTg5VjJja201QnhyRGJTdzNmZDQ1K1NGODQrOEczdXJibHFpNXJjL0w3R2xjc1FkNkxtMTVuOUpvNU5xcGpyR1hzRUs2anZmRHdMTkJITXI4PSIsIml2UGFyYW1ldGVyU3BlYyI6InhUZHd4bmt3bm9BajNLamsiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
-
 TimeTraveler finds timezones based on geographical coordinates using offline
 data and Quadtree lookups intead of an online API.
 
@@ -10,7 +8,7 @@ data and Quadtree lookups intead of an online API.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'timetraveler'
+gem 'tz-traveler'
 ```
 
 And then execute:
@@ -19,14 +17,14 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install timetraveler
+    $ gem install tz-traveler
 
 ## Usage
 
 Find a timezone for a geographical coordinate (WGS84) like so:
 
 ```ruby
-require 'timetraveler'
+require 'time_traveler'
 
 TimeTraveler.find_timezone(77.2090210, 28.6139390)
 ```
@@ -49,7 +47,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on Bitbucket at https://bitbucket.org/janlindblom/ruby-timetraveler. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on Bitbucket at <https://github.com/janlindblom/ruby-timetraveler>. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -61,4 +59,4 @@ The embedded JSON data structure contained in the TimeTraveler gem constructed f
 
 ## Code of Conduct
 
-Everyone interacting in the TimezoneCalculator project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://bitbucket.org/janlindblom/ruby-timetraveler/src/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the TimezoneCalculator project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/janlindblom/ruby-timetraveler/blob/main/CODE_OF_CONDUCT.md).
