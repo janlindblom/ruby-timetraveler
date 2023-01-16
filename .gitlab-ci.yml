@@ -1,6 +1,7 @@
+
 .ruby-cache:
   before_script:
-    - gem install bundler --version 2.2.5 --no-document
+    - gem install bundler --version 2.4.3 --no-document
     - bundle install --jobs $(nproc) "${FLAGS[@]}"
   cache:
     key:
@@ -10,7 +11,7 @@
       - vendor
 
 default:
-  image: ruby:2.6
+  image: ruby:3.1
 
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
@@ -19,10 +20,6 @@ stages:
   - build
   - test
   - verify
-
-before_script:
-  - gem install bundler --version 2.1.4 --no-document
-  - bundle install --jobs $(nproc) "${FLAGS[@]}"
 
 build:
   stage: build
@@ -35,7 +32,8 @@ build:
 
 test:offline:
   stage: test
-  needs: ["build"]
+  needs:
+    - build
   script:
     - bundle exec rake spec:offline
   artifacts:
@@ -48,12 +46,13 @@ test:offline:
 
 test:online:
   stage: test
-  needs: ["build"]
+  needs:
+    - build
   script:
     - bundle exec rake spec:online
   only:
     refs:
-      - master
+      - main
   artifacts:
     when: always
     paths:
@@ -63,14 +62,16 @@ test:online:
   extends: .ruby-cache
 
 yard:
-  needs: ["build"]
+  needs:
+    - build
   stage: verify
   script:
     - bundle exec rake yard
   extends: .ruby-cache
 
 rubocop:
-  needs: ["build"]
+  needs:
+    - build
   stage: verify
 
   script:
