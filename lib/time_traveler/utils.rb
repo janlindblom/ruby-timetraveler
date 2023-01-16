@@ -55,7 +55,7 @@ module TimeTraveler
         aabb = Quadtree::AxisAlignedBoundingBox.new(Quadtree::Point.new(0, 0), 180)
         qt = Quadtree::Quadtree.new(aabb)
 
-        parsed_file = CSV.read("#{working_directory}/#{cities_file}.txt", { :col_sep => "\t" })
+        parsed_file = CSV.read("#{working_directory}/#{cities_file}.txt", :col_sep => "\t")
         parsed_file.each do |entry|
           next unless entry.size > 18
 

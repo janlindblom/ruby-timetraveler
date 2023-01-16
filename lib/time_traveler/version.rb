@@ -2,5 +2,5 @@
 
 module TimeTraveler
   # Current version
-  VERSION = '20.6.0'
+  VERSION = '23.1.0'
 end
