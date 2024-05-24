@@ -8,9 +8,13 @@ Gem::Specification.new do |spec|
   spec.version       = TimeTraveler::VERSION
   spec.authors       = ["Jan Lindblom"]
   spec.email         = ["janlindblom@fastmail.fm"]
-  spec.date          = "2023-01-16"
+  spec.date          = "2024-05-24"
   spec.summary       = %q{Find timezone based on geographical location, offline.}
   spec.homepage      = "https://github.com/janlindblom/ruby-timetraveler"
+  spec.metadata      = {
+    "homepage_uri" => "https://github.com/janlindblom/ruby-timetraveler",
+    "source_code_uri" => "https://github.com/janlindblom/ruby-timetraveler"
+  } if spec.respond_to? :metadata=
   spec.license       = "MIT"
 
   if spec.respond_to? :specification_version then
